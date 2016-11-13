@@ -3,14 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon;
 
 class Post extends Model
 {
+
     public $table = 'post';
 
-    public function setDatePublished()
+    public function user()
     {
-        $this->date_published->format('d.m.Y');
+        return $this->hasOne('App\User', 'id', 'author');
     }
+
 }

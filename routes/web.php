@@ -15,5 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('post', 'PostController@index');
-Route::get('post/{id}', 'PostController@showpost');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('post', 'PostController@index');
+    Route::get('post/{id}', 'PostController@showpost');
+    Route::post('post/{id}/addcomment', 'PostController@addcomment');
+});

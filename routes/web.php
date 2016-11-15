@@ -19,4 +19,5 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('post', 'PostController@index');
     Route::get('post/{id}', 'PostController@showpost');
     Route::post('post/{id}/addcomment', 'PostController@addcomment');
+    Route::get('post/addpost', 'PostController@addpost');
 });

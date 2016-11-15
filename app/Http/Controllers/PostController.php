@@ -23,14 +23,21 @@ class PostController extends Controller
         return view('post.showpost', ['post' => $post,
             'comments' => $comments]);
     }
+    
+    public function addpost()
+    {
+        return view('post.addpost');
+    }
+
     public function addcomment(Request $request)
     {
-      $comment = new Comment();
-      $comment->author_email = $request->author_email;
-      $comment->comment = $request->comment;
-      $comment->post_id = $request->post_id;
-      $comment->save();
-      return back();
+        //dd($request);
+        $comment = new Comment();
+        $comment->author_email = $request->input('author_email');
+        $comment->comment = $request->input('comment');
+        $comment->post_id = $request->input('post_id');
+        $comment->save();
+        return back();
     }
 
 }

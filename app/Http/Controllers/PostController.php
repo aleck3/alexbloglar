@@ -39,13 +39,10 @@ class PostController extends Controller
         return back();
     }
 
-    public function updatepost(Request $request)
+    public function updatepost($id)
     {
-        $post = new Post;
-        $post->title = $request->input('title');
-        $post->author = $request->input('author');
-        $post->content = $request->input('content');
-        $post->save();
+        $post = Post::findOrFail($id);
+        return view('post.updatepost', ['post' => $post]);
     }
 
     public function storepost(Request $request)
@@ -55,7 +52,17 @@ class PostController extends Controller
         $post->author = $request->input('author');
         $post->content = $request->input('content');
         $post->save();
-        return redirect('post   ');
+        return redirect('post');
+    }
+    
+    public function storeupdatedpost(Request $request)
+    {
+        $post = Post::findOrFail($request->id);
+        $post->title = $request->input('title');
+        $post->author = $request->input('author');
+        $post->content = $request->input('content');
+        $post->save();
+        return redirect('post');
     }
 
 }

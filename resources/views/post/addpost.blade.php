@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h1><a href="{{ action('PostController@index') }}">Posts<a></h1><hr>
+<h1><a href="{{ action('PostController@index') }}">Posts</a></h1><hr>
     <form action="{{ url('post/storepost') }}" method="post">
         {{ csrf_field() }}
         <div class="form-group">

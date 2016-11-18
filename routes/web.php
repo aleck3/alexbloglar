@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => ['web']], function () {
     Route::get('post', 'PostController@index');
+    Route::get('post/addpost', 'PostController@addpost');
+    Route::post('post/storepost', 'PostController@storepost');
     Route::get('post/{id}', 'PostController@showpost');
     Route::post('post/{id}/addcomment', 'PostController@addcomment');
-    Route::get('post/addpost', 'PostController@addpost');
-});
+    Route::get('post/{id}/updatepost', 'PostController@updatepost');
+    
+

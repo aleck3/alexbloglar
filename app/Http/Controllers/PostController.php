@@ -11,7 +11,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::orderBy('date_published')->paginate(2);
+        $posts = Post::orderBy('date_published', 'desc')->paginate(2);
         return view('post.index', ['posts' => $posts]);
     }
 
@@ -31,7 +31,13 @@ class PostController extends Controller
 
     public function addcomment(Request $request)
     {
+        $this->validate($request, [
+            'author_email' => 'required|email',
+            'comment' => 'required'
+            ]);
+
         $comment = new Comment();
+
         $comment->author_email = $request->input('author_email');
         $comment->comment = $request->input('comment');
         $comment->post_id = $request->input('post_id');
@@ -47,6 +53,11 @@ class PostController extends Controller
 
     public function storepost(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required'
+            ]);
+        
         $post = new Post();
         $post->title = $request->input('title');
         $post->author = $request->input('author');
@@ -54,7 +65,7 @@ class PostController extends Controller
         $post->save();
         return redirect('post');
     }
-    
+
     public function storeupdatedpost(Request $request)
     {
         $post = Post::findOrFail($request->id);

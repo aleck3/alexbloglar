@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
+use App\Mail\Contact;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -14,7 +16,7 @@ class PostController extends Controller
         $posts = Post::orderBy('date_published', 'desc')->paginate(2);
         return view('post.index', ['posts' => $posts]);
     }
-    
+
     public function contact()
     {
         return view('post.contact');
@@ -39,7 +41,7 @@ class PostController extends Controller
         $this->validate($request, [
             'author_email' => 'required|email',
             'comment' => 'required'
-            ]);
+        ]);
 
         $comment = new Comment();
 
@@ -61,8 +63,8 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'content' => 'required'
-            ]);
-        
+        ]);
+
         $post = new Post();
         $post->title = $request->input('title');
         $post->author = $request->input('author');
@@ -76,14 +78,29 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'content' => 'required'
-            ]);
-        
+        ]);
+
         $post = Post::findOrFail($request->id);
         $post->title = $request->input('title');
         $post->author = $request->input('author');
         $post->content = $request->input('content');
         $post->save();
         return redirect('post');
+    }
+
+    public function sendmail(Request $request)
+    {
+
+        $this->validate($request, [
+            'sendername' => 'required',
+            'senderemail' => 'required|email',
+            'sendermessage' => 'required',
+        ]);
+
+        Mail::to('aleck3@ukr.net')->send(new Contact($request));
+
+        return redirect('post/contact')
+                        ->with('message', 'Thanks for contacting us!');
     }
 
 }

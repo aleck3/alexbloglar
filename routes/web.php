@@ -15,12 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-    Route::get('post', 'PostController@index');
-    Route::get('post/addpost', 'PostController@addpost');
-    Route::post('post/storepost', 'PostController@storepost');
-    Route::get('post/contact', 'PostController@contact');
-    Route::get('post/{id}', 'PostController@showpost');
-    Route::post('post/{id}/addcomment', 'PostController@addcomment');
-    Route::get('post/{id}/updatepost', 'PostController@updatepost');
-    Route::post('post/{id}/storeupdatedpost', 'PostController@storeupdatedpost');
+Route::get('post', 'PostController@index');
+Route::get('post/addpost', 'PostController@addpost');
+Route::post('post/storepost', 'PostController@storepost');
+Route::get('post/contact', 'PostController@contact');
+Route::post('post/sendmail', 'PostController@sendmail');
+Route::get('post/{id}', 'PostController@showpost');
+Route::post('post/{id}/addcomment', 'PostController@addcomment');
+Route::get('post/{id}/updatepost', 'PostController@updatepost');
+Route::post('post/{id}/storeupdatedpost', 'PostController@storeupdatedpost');
 

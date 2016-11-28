@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <h1>Contact Us</h1>
+<a href="{{ action('PostController@index') }}">Back to Posts</a>
 @if (count($errors) > 0)
 <div class="alert alert-danger">
     <ul>
@@ -10,7 +11,12 @@
     </ul>
 </div>
 @endif
-<form action="{{ url('post/storepost') }}" method="post">
+@if(Session::has('message'))
+<div class="alert alert-info">
+    {{Session::get('message')}}
+</div>
+@endif
+<form action="{{ url('post/sendmail') }}" method="post">
     {{ csrf_field() }}
     <div class="form-group">
         <label for="yourname">Your Name</label>

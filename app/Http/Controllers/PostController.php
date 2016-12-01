@@ -7,6 +7,7 @@ use App\Post;
 use App\Comment;
 use App\Mail\Contact;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -55,7 +56,11 @@ class PostController extends Controller
     public function updatepost($id)
     {
         $post = Post::findOrFail($id);
-        return view('post.updatepost', ['post' => $post]);
+        if ($post->author == Auth::id()) {
+            return view('post.updatepost', ['post' => $post]);
+        }else{
+            return redirect('post');
+        }
     }
 
     public function storepost(Request $request)

@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <h1> <a href="{{ action('PostController@index') }}">Post</a> </h1>
+@if ($post->author == Auth::id())
 <a href="{{ action('PostController@updatepost', ['id' => $post->id]) }}">Edit Post</a><hr>
+@endif
 <li><h2>{{ $post->title }}</h2></li>
-<li><i>{{ $post->user->username }}</i></li>
+<li><i>{{ $post->user->name }}</i></li>
 <li>{{ $post->content }}</li>
 <li><b>{{ date('F d, Y', strtotime($post->date_published)) }}</b></li><br>
 <hr>

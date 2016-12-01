@@ -58,8 +58,11 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         if ($post->author == Auth::id()) {
             return view('post.updatepost', ['post' => $post]);
-        }else{
-            return redirect('post');
+        } else {
+            return redirect()->action(
+                            'PostController@showpost', ['id' => $id]
+            );
+            ;
         }
     }
 

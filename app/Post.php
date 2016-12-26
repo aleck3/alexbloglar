@@ -16,4 +16,9 @@ class Post extends Model
         return $this->hasOne('App\User', 'id', 'author');
     }
 
+    public function file()
+    {
+        return $this->hasManyThrough('App\File', 'App\PostHasFiles', 'post_id', 'id');
+    }
+
 }

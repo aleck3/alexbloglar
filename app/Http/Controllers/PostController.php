@@ -4,27 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\File;
 use App\Comment;
+use App\PostHasFiles;
 use App\Mail\Contact;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
-class PostController extends Controller
-{
+class PostController extends Controller {
 
-    public function index()
-    {
-        $posts = Post::orderBy('date_published', 'desc')->paginate(2);
+    public function index() {
+        $posts = Post::orderBy('date_published', 'desc')->paginate(5);
         return view('post.index', ['posts' => $posts]);
     }
 
-    public function contact()
-    {
+    public function contact() {
         return view('post.contact');
     }
 
-    public function showpost($id)
-    {
+    public function showpost($id) {
         $post = Post::findOrFail($id);
         $comments = Comment::where('post_id', $post->id)
                 ->get();
@@ -32,13 +30,11 @@ class PostController extends Controller
             'comments' => $comments]);
     }
 
-    public function addpost()
-    {
+    public function addpost() {
         return view('post.addpost');
     }
 
-    public function addcomment(Request $request)
-    {
+    public function addcomment(Request $request) {
         $this->validate($request, [
             'author_email' => 'required|email',
             'comment' => 'required'
@@ -53,36 +49,41 @@ class PostController extends Controller
         return back();
     }
 
-    public function updatepost($id)
-    {
+    public function updatepost($id) {
         $post = Post::findOrFail($id);
         if ($post->author == Auth::id()) {
             return view('post.updatepost', ['post' => $post]);
         } else {
-            return redirect()->action(
-                            'PostController@showpost', ['id' => $id]
-            );
-            ;
+            return redirect('post');
         }
     }
 
-    public function storepost(Request $request)
-    {
+    public function storepost(Request $request) {
         $this->validate($request, [
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'photo' => 'mimes:jpeg,bmp,png'
         ]);
-
         $post = new Post();
+        $file = new File();
+        $posthasfiles = new PostHasFiles();
         $post->title = $request->input('title');
-        $post->author = $request->input('author');
+        $post->author = Auth::id();
         $post->content = $request->input('content');
         $post->save();
+        if ($request->file('photo')) {
+            $file->user_id = $post->author;
+            $file->type = $request->file('photo')->extension();
+            $file->name = $request->file('photo')->store('public/images');
+            $file->save();
+            $posthasfiles->post_id = $post->id;
+            $posthasfiles->id = $file->id;
+            $posthasfiles->save();
+        }
         return redirect('post');
     }
 
-    public function storeupdatedpost(Request $request)
-    {
+    public function storeupdatedpost(Request $request) {
         $this->validate($request, [
             'title' => 'required',
             'content' => 'required'
@@ -96,8 +97,7 @@ class PostController extends Controller
         return redirect('post');
     }
 
-    public function sendmail(Request $request)
-    {
+    public function sendmail(Request $request) {
 
         $this->validate($request, [
             'sendername' => 'required',

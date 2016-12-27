@@ -17,9 +17,9 @@
 </ul>
 <hr>
 <H4>Comments</H4>
-@if ($comments->count()!=0)
+@if ($post->comment->count()!=0)
 <ul>
-    @foreach($comments as $comment)
+    @foreach($post->comment as $comment)
     <li><i>{{ $comment->author_email }}</i></li>
     <li>{{ $comment->comment }}</li><br>
     @endforeach

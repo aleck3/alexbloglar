@@ -11,30 +11,33 @@ use App\Mail\Contact;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
-class PostController extends Controller {
+class PostController extends Controller
+{
 
-    public function index() {
+    public function index()
+    {
         $posts = Post::orderBy('date_published', 'desc')->paginate(5);
         return view('post.index', ['posts' => $posts]);
     }
 
-    public function contact() {
+    public function contact()
+    {
         return view('post.contact');
     }
 
-    public function showpost($id) {
+    public function showpost($id)
+    {
         $post = Post::findOrFail($id);
-        $comments = Comment::where('post_id', $post->id)
-                ->get();
-        return view('post.showpost', ['post' => $post,
-            'comments' => $comments]);
+        return view('post.showpost', ['post' => $post]);
     }
 
-    public function addpost() {
+    public function addpost()
+    {
         return view('post.addpost');
     }
 
-    public function addcomment(Request $request) {
+    public function addcomment(Request $request)
+    {
         $this->validate($request, [
             'author_email' => 'required|email',
             'comment' => 'required'
@@ -49,7 +52,8 @@ class PostController extends Controller {
         return back();
     }
 
-    public function updatepost($id) {
+    public function updatepost($id)
+    {
         $post = Post::findOrFail($id);
         if ($post->author == Auth::id()) {
             return view('post.updatepost', ['post' => $post]);
@@ -58,7 +62,8 @@ class PostController extends Controller {
         }
     }
 
-    public function storepost(Request $request) {
+    public function storepost(Request $request)
+    {
         $this->validate($request, [
             'title' => 'required',
             'content' => 'required',
@@ -83,7 +88,8 @@ class PostController extends Controller {
         return redirect('post');
     }
 
-    public function storeupdatedpost(Request $request) {
+    public function storeupdatedpost(Request $request)
+    {
         $this->validate($request, [
             'title' => 'required',
             'content' => 'required'
@@ -97,7 +103,8 @@ class PostController extends Controller {
         return redirect('post');
     }
 
-    public function sendmail(Request $request) {
+    public function sendmail(Request $request)
+    {
 
         $this->validate($request, [
             'sendername' => 'required',

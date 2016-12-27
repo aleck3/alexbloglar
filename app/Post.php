@@ -21,4 +21,9 @@ class Post extends Model
         return $this->hasManyThrough('App\File', 'App\PostHasFiles', 'post_id', 'id');
     }
 
+    public function comment()
+    {
+        return $this->hasMany("App\Comment", 'post_id', 'id');
+    }
+
 }

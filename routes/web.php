@@ -16,12 +16,13 @@ Route::get('/', function () {
 });
 
 Route::get('post', 'PostController@index');
-Route::get('my_details', 'UserController@my_details')->middleware('auth');
+Route::get('user/add_mydetails', 'UserController@add_mydetails')->middleware('auth');
+Route::post('user/store_mydetails', 'UserController@store_mydetails');
 Route::get('post/addpost', 'PostController@addpost')->middleware('auth');
 Route::post('post/storepost', 'PostController@storepost');
 Route::get('post/contact', 'PostController@contact');
 Route::post('post/sendmail', 'PostController@sendmail');
-Route::get('author_details/{id}', 'UserController@author_details');
+Route::get('user/userdetails/{id}', 'UserController@userdetails');
 Route::get('post/{id}', 'PostController@showpost');
 Route::post('post/{id}/addcomment', 'PostController@addcomment');
 Route::get('post/{id}/updatepost', 'PostController@updatepost')->middleware('auth');

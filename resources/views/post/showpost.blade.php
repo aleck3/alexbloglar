@@ -6,12 +6,15 @@
 @endif
 <ul class="list-unstyled">
     <li><h2>{{ $post->title }}</h2></li>
-    <li><i><a href="{{ action('UserController@author_details', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a></i></li>
+    <li><i><a href="{{ action('UserController@userdetails', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a></i></li>
+    @if($post->file)
     <ul class="list-unstyled">
         @foreach($post->file as $file)
         <li><img src="{{ Storage::url($file->name) }}"></li>
         @endforeach
     </ul>
+    <br>
+    @endif
     <li>{{ $post->content }}</li>
     <li><b>{{ date('F d, Y', strtotime($post->date_published)) }}</b></li><br>
 </ul>

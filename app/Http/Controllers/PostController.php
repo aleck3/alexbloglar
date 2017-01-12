@@ -13,29 +13,43 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+    /*
+      |--------------------------------------------------------------------------
+      | Posts Controller
+      |--------------------------------------------------------------------------
+      |
+      | This controller is responsible for CRUD operations with posts
+      | and showing contact page with sending mail function
+      |
+     */
 
+    //Show all posts
     public function index()
     {
         $posts = Post::orderBy('date_updated', 'desc')->paginate(5);
         return view('post.index', ['posts' => $posts]);
     }
 
+    //Show contact page
     public function contact()
     {
         return view('post.contact');
     }
 
+    //Show one post by its ID
     public function showpost($id)
     {
         $post = Post::findOrFail($id);
         return view('post.showpost', ['post' => $post]);
     }
 
+    //Show the page for adding post
     public function addpost()
     {
         return view('post.addpost');
     }
 
+    //Adding comment to a post
     public function addcomment(Request $request)
     {
         $this->validate($request, [
@@ -52,6 +66,7 @@ class PostController extends Controller
         return back();
     }
 
+    //Updating a post
     public function updatepost($id)
     {
         $post = Post::findOrFail($id);
@@ -62,6 +77,7 @@ class PostController extends Controller
         }
     }
 
+    //Storing created post to database
     public function storepost(Request $request)
     {
         $this->validate($request, [
@@ -88,6 +104,7 @@ class PostController extends Controller
         return redirect('post');
     }
 
+    //Storing updated post to the database
     public function storeupdatedpost(Request $request)
     {
         $this->validate($request, [
@@ -103,6 +120,7 @@ class PostController extends Controller
         return redirect('post');
     }
 
+    //sending mail from the Contact Page
     public function sendmail(Request $request)
     {
 

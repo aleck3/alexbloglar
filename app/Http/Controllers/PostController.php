@@ -30,6 +30,17 @@ class PostController extends Controller
         return view('post.index', ['posts' => $posts]);
     }
 
+    //Search posts
+    public function search(Request $request)
+    {
+        $this->validate($request, [
+            'q' => 'required'
+        ]);
+        $q = $request->input('q');
+        $posts = Post::where('title', 'LIKE', '%' . $q . '%')->paginate(5);
+        return view('post.searchresult', ['posts' => $posts]);
+    }
+
     //Show contact page
     public function contact()
     {
@@ -66,7 +77,7 @@ class PostController extends Controller
         return back();
     }
 
-    //Updating a post
+    //Updating a post (if the User is the Author)
     public function updatepost($id)
     {
         $post = Post::findOrFail($id);

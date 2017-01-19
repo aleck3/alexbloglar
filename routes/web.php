@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('post', 'PostController@index');
+Route::match(['get', 'post'], 'post/search', 'PostController@search');
 Route::get('admin', 'AdminpanelController@index')->middleware('auth', 'admin');
 Route::get('admin/users', 'AdminpanelController@users')->middleware('auth');
 Route::get('user/add_mydetails', 'UserController@add_mydetails')->middleware('auth', 'admin');

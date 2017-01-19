@@ -38,7 +38,8 @@
                 <form action="{{ url('post/'.$post->id.'/delete') }}" method="POST">
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-danger btn-sm">
-                        Delete Post
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        &nbsp;Delete Post
                     </button>
                 </form>
             </td>

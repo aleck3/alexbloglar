@@ -1,5 +1,16 @@
 @extends('layouts.app')
 @section('content')
+<form action="post/search" method="post">
+    {{ csrf_field() }}
+    <div class="input-group">
+        <input type="text" class="form-control" name="q"
+               placeholder="Search posts"> <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </span>
+    </div>
+</form>
 <h1> Posts </h1>
 <a href="{{ action('PostController@addpost') }}">Create new Post</a><br>
 <a href="{{ action('PostController@contact') }}">Contact Us</a><hr>

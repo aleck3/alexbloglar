@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h1> <a href="{{ action('PostController@index') }}">Post</a> </h1>
+<h1> <a href="{{ action('PostController@index') }}">Posts</a> </h1>
 @if ($post->author == Auth::id())
 <a href="{{ action('PostController@updatepost', ['id' => $post->id]) }}">Edit Post</a><hr>
 @endif
@@ -49,8 +49,8 @@
                placeholder="Email">
     </div>
 
-    <div class="form-group"
-         <label for="commentcomment">Your Comment</label><br>
+    <div class="form-group">
+        <label for="contentcomment">Your Comment</label><br>
         <textarea name="comment" id="contentcomment" class="form-control"
                   rows="10"></textarea>
     </div>

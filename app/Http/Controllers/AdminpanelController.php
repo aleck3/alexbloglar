@@ -11,7 +11,7 @@ class AdminpanelController extends Controller
 
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        $posts = Post::orderBy('id', 'desc')->paginate(5);
 
         return view('admin.index', ['posts' => $posts]);
     }
@@ -24,7 +24,7 @@ class AdminpanelController extends Controller
 
     public function users()
     {
-        $users = User::orderBy('id', 'desc')->paginate(10);
+        $users = User::orderBy('id', 'desc')->paginate(5);
         return view('admin.users', ['users' => $users]);
     }
 

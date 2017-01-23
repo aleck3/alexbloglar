@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'avatar' => 'mimes:jpeg,bmp,png',
-            'avatar' => 'dimensions:width=160,height=160'
+            'avatar' => 'dimensions:width=80,height=80'
         ]);
 
         $userdetails = Userdetails::findorfail(Auth::id());

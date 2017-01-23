@@ -21,7 +21,7 @@
         <input type="text" class="form-control" id="lastname" name="lastname">
     </div>
     <div class="form-group">
-        <label for="avatar">Upload Photo (160x160 px)</label>
+        <label for="avatar">Upload Photo (80x80 px)</label>
         <input type="file" class="form-control" id="avatar" name="avatar">
     </div>
     <div class="form-group">

@@ -11,4 +11,7 @@
     <li><strong>Last name: </strong>{{ $userdetails->lastname }}</li>
     <li><strong>Date of Birth: </strong>{{ $userdetails->date_of_birth }}</li>
 </ul>
+@if ($userdetails->user->id == Auth::id())
+<a href="{{ action('UserController@add_mydetails') }}">Edit My details</a><hr>
+@endif
 @endsection

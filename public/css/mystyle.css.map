@@ -1,0 +1,1 @@
+{"version":3,"sources":["mystyle.scss"],"names":[],"mappings":"AAAA;EACI,kEAAiE;EACjE,WAAW;EACX,cAAc;CACjB;;AACD;EACI,iBAAiB;CACpB","file":"mystyle.css","sourcesContent":[".jumbo {\n    background: #F5F8FA url(\"/images/jumbo.jpg\") no-repeat top center;\n    color: red;\n    height: 444px;\n}\n.jumbo h1 {\n    margin-top: 70px;\n}\n"]}

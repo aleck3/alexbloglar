@@ -1,3 +1,5 @@
+# Blog with the ability to create, edit, read posts, add comments. There is an authantication system. Blog have an admin panel to manipulate data about users and posts.
+
 # Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)

@@ -2,7 +2,7 @@
 
 > My training project on Laravel PHP Framework
 
-<img src="readmeImg.JPG">
+<img src="readmeImg.jpg">
 
 ## Project features
 
